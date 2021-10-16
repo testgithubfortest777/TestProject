@@ -61,5 +61,10 @@ public class AdminPageAndBlogTest {
         adminPage.clickSaveButton();
         driver.get(ConfProperties.getProperty("blogpage"));
         blogPage.searchTitle(titleText);
+        driver.get(ConfProperties.getProperty("loginpage"));
+        adminPage.clickEntriesList();
+        adminPage.searchTitle(titleText);
+        adminPage.deleteTitle();
+        adminPage.deleteTitleSure();
     }
 }

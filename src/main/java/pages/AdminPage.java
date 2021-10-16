@@ -1,6 +1,7 @@
 package pages;
 
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,6 +31,12 @@ public class AdminPage {
     private WebElement addEntriesLink;
 
     /**
+     * определение локатора ссылки на список Entries
+     */
+    @FindBy(xpath = "//div[@class=\"dashboard-module-content\"]//a[@href=\"/admin/blog/entry/\" and text()]")
+    private WebElement entriesListLink;
+
+    /**
      * метод для проверки наличия заголовка на странице. Здесь долго побеждал кодировку для того, чтобы работал Assert Equals
      */
     public void checkControlPanelTitle() {
@@ -43,6 +50,13 @@ public class AdminPage {
      */
     public void clickAddEntries() {
         addEntriesLink.click();
+    }
+
+    /**
+     * метод для получения списка с записями
+     */
+    public void clickEntriesList() {
+        entriesListLink.click();
     }
 
     /** Меню добавления новой записи **/
@@ -82,6 +96,18 @@ public class AdminPage {
      */
     @FindBy(xpath = "//input[@name='_save']")
     private WebElement saveButton;
+
+    /**
+     * определение локатора кнопки "Удалить"
+     */
+    @FindBy(xpath = "//a[@class=\"deletelink\"]")
+    private WebElement deleteButton;
+
+    /**
+     * определение локатора кнопки "Да, я уверен"
+     */
+    @FindBy(xpath = "//input[@type=\"submit\"]")
+    private WebElement iAmSureButton;
 
     /**
      * метод для проверки наличия заголовка на странице добавления новой записи
@@ -146,5 +172,26 @@ public class AdminPage {
      */
     public void clickSaveButton() {
         saveButton.click();
+    }
+
+    /**
+     * Поиск заголовка среди списка entries и нажатие на созданный entry
+     */
+    public void searchTitle(String title) {
+        driver.findElement(By.xpath("//tbody//tr//a[text()='" + title + "']")).click();
+    }
+
+    /**
+     * Нажатие на кнопку удаления entry
+     */
+    public void deleteTitle() {
+        deleteButton.click();
+    }
+
+    /**
+     * Нажатие на кнопку "Я уверен" при удалении записи
+     */
+    public void deleteTitleSure() {
+        iAmSureButton.click();
     }
 }
