@@ -1,4 +1,4 @@
-package pages;
+package mail.ru.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,19 +19,26 @@ public class LoginPage {
     /**
      * определение локатора поля ввода логина
      */
-    @FindBy(xpath = "//input[@id='id_username']")
+    @FindBy(xpath = "//input[contains(@class, email-input) and @placeholder='Имя ящика']")
     private WebElement loginField;
 
     /**
      * определение локатора поля ввода пароля
      */
-    @FindBy(xpath = "//input[@id='id_password']")
+    @FindBy(xpath = "//input[@placeholder='Пароль']")
     private WebElement passwdField;
 
+
     /**
-     * определение локатора кнопки входа в аккаунт
+     * определение локатора кнопки "Ввести пароль"
      */
-    @FindBy(xpath = "//input[@type = 'submit']")
+    @FindBy(xpath = "//button[@data-testid='enter-password']")
+    private WebElement enterThePasswordBtn;
+
+    /**
+     * определение локатора кнопки "Войти"
+     */
+    @FindBy(xpath = "//button[@data-testid='login-to-mail']")
     private WebElement loginBtn;
 
     /**
@@ -49,7 +56,14 @@ public class LoginPage {
     }
 
     /**
-     * метод для осуществления нажатия кнопки входа в аккаунт, также можно использовать submit
+     * метод для осуществления нажатия кнопки "Ввести пароль", также можно использовать submit
+     */
+    public void clickEnterThePasswordBtn() {
+        enterThePasswordBtn.click();
+    }
+
+    /**
+     * метод для осуществления нажатия кнопки "Войти", также можно использовать submit
      */
     public void clickLoginBtn() {
         loginBtn.click();

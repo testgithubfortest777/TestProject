@@ -1,6 +1,8 @@
-package pages;
+package mail.ru.pages;
 
 import configurations.ConfProperties;
+import mail.ru.pages.LoginPage;
+import mail.ru.pages.MailPage;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -9,10 +11,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
 
-public class AdminPageAndBlogTest {
-    public static AdminPage adminPage;
+public class MailPageAndBlogTest {
+    public static MailPage mailPage;
     public static LoginPage loginPage;
-    public static BlogPage blogPage;
     public static WebDriver driver;
 
     /**
@@ -24,9 +25,8 @@ public class AdminPageAndBlogTest {
         System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
         //создание экземпляра драйвера
         driver = new ChromeDriver();
-        adminPage = new AdminPage(driver);
+        mailPage = new MailPage(driver);
         loginPage = new LoginPage(driver);
-        blogPage = new BlogPage(driver);
         //окно разворачивается на полный экран
         driver.manage().window().maximize();
         //задержка на выполнение теста = 10 сек.
@@ -41,30 +41,17 @@ public class AdminPageAndBlogTest {
     }
 
     /**
-     * тестовый метод для осуществления аутентификации
+     * тестовый метод для осуществления аутентификации, отправки сообщения
      */
     @Test
     public void adminPageAndAddEntryTest() {
         loginPage.inputLogin(ConfProperties.getProperty("login"));
+        loginPage.clickEnterThePasswordBtn();
         loginPage.inputPasswd(ConfProperties.getProperty("password"));
         loginPage.clickLoginBtn();
-        adminPage.checkControlPanelTitle();
-        adminPage.clickAddEntries();
-        adminPage.checkAddPanelTitle();
-        adminPage.inputTitle(ConfProperties.randomString(10));
-        adminPage.clearSlug();
-        adminPage.inputSlug(ConfProperties.randomString(10));
-        String titleText = adminPage.getTitleText();
-        String slugText = adminPage.getSlugText();
-        adminPage.inputMarkdownField(slugText);
-        adminPage.inputTextField(slugText);
-        adminPage.clickSaveButton();
-        driver.get(ConfProperties.getProperty("blogpage"));
-        blogPage.searchTitle(titleText);
-        driver.get(ConfProperties.getProperty("loginpage"));
-        adminPage.clickEntriesList();
-        adminPage.searchTitle(titleText);
-        adminPage.deleteTitle();
-        adminPage.deleteTitleSure();
+        mailPage.clickWriteLetterButton();
+        mailPage.inputEmail("eugenepilatov@gmail.com");
+        mailPage.inputMessageText(ConfProperties.randomString(20));
+        mailPage.clickSendButton();
     }
 }

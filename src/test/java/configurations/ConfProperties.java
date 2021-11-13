@@ -12,9 +12,10 @@ import java.util.Properties;
 public class ConfProperties {
     protected static FileInputStream fileInputStream;
     protected static Properties PROPERTIES;
-    static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    static SecureRandom rnd = new SecureRandom();
+    private static SecureRandom rnd = new SecureRandom();
+    private static final String AB = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     public static WebDriver driver;
+
 
     static {
         try {
