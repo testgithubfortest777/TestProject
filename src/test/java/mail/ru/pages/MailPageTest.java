@@ -11,7 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
 
-public class MailPageAndBlogTest {
+public class MailPageTest {
     public static MailPage mailPage;
     public static LoginPage loginPage;
     public static WebDriver driver;
